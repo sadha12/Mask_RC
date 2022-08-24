@@ -9,7 +9,7 @@ from mrcnn.visualize import display_instances
 import matplotlib.pyplot as plt
 
 # Root directory of the project
-ROOT_DIR = "E:\\BTP\\Trial\\"
+ROOT_DIR = "/content/Mask_RC"
 
 # Import Mask RCNN
 sys.path.append(ROOT_DIR)  # To find local version of the library
@@ -67,11 +67,11 @@ class CustomDataset(utils.Dataset):
         # We mostly care about the x and y coordinates of each region
         #annotations1 = json.load(open('E:\\BTP\\Trial\\Dataset\\train\\Defect_dataset_annt_json (1).json'))
         # print(annotations1)
-        if (dataset_dir == 'E:\\BTP\\Trial\\Dataset\\train'):
-            annotations1 = json.load(open('E:\\BTP\\Trial\\Dataset\\train\\train.json'))
+        if (dataset_dir == '/content/Mask_RC/Dataset/train'):
+            annotations1 = json.load(open('/content/Mask_RC/Dataset/train/train.json'))
 
-        elif (dataset_dir == 'E:\\BTP\\Trial\\Dataset\\val'):
-            annotations1 = json.load(open('E:\\BTP\\Trial\\Dataset\\val\\val.json'))
+        elif (dataset_dir == '/content/Mask_RC/Dataset/val'):
+            annotations1 = json.load(open('/content/Mask_RC/Dataset/val/val.json'))
 
         annotations = list(annotations1.values())  # don't need the dict keys
 
@@ -155,12 +155,12 @@ def train(model):
     """Train the model."""
     # Training dataset.
     dataset_train = CustomDataset()
-    dataset_train.load_custom("E:\\BTP\\Trial\\Dataset", "train")
+    dataset_train.load_custom("/content/Mask_RC/Dataset", "train")
     dataset_train.prepare()
 
     # Validation dataset
     dataset_val = CustomDataset()
-    dataset_val.load_custom("E:\\BTP\\Trial\\Dataset", "val")
+    dataset_val.load_custom("/content/Mask_RC/Dataset", "val")
     dataset_val.prepare()
 
     # *** This training schedule is an example. Update to your needs ***
@@ -170,7 +170,7 @@ def train(model):
     print("Training network heads")
     model.train(dataset_train, dataset_val,
                 learning_rate=config.LEARNING_RATE,
-                epochs=10,
+                epochs=5,
                 layers='heads')
 
 
